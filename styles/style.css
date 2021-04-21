@@ -1,7 +1,18 @@
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #e5e5e5;
+}
 .top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #ec362d;
   width: 100%;
   height: 70px;
+  color: #ffffff;
+  margin-left: 0;
+  margin-right: 0;
+  font-size: 37px;
 }
 .begin-page{
   display: flex;
