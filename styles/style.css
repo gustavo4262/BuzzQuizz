@@ -65,23 +65,48 @@ body {
   flex-flow: wrap row;
 }
 .quizzes-list .quizz {
+  z-index: 1;
   position: relative;
   margin-top: 13px;
   margin-right: 15px;
   width: 340px;
   height: 181px;
   border-radius: 5px;
-  /* background-image: url(somefile); */
+  cursor: pointer;
+}
+.quizzes-list .quizz img {
+  width: 340px;
+  height: 181px;
+  border-radius: 5px;
 }
 .quizzes-list .quizz:nth-child(3n + 0) {
   margin-right: 0px;
 }
-.quizzes-list .quizz h2 {
+.quizzes-list .quizz-title {
+  z-index: 1;
   position: absolute;
-  font-size: 19px;
   left: 17px;
-  bottom: 10px;
+  bottom: 0px;
+  height: 54px;
+  padding-right: 17px;
+  display: flex;
+  align-items: center;
+}
+.quizzes-list .quizz-title h2 {
+  z-index: 1;
+  font-size: 19px;
   color: white;
+  word-break: break-all;
+}
+.quizzes-list .quizz::after {
+  position: relative;
+  display: block;
+  margin-top: -100px;
+  width: 340px;
+  height: 100px;
+  background-image: linear-gradient(transparent, black);
+  content: "";
+  border-radius: 5px;
 }
 .quizzes-list .all {
   width: 1051px;
