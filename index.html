@@ -27,14 +27,42 @@
             <p class="call-to-creation">Comece pelo começo</p>
             <div class="main-info">
                 <input type="text" placeholder="Título do seu quizz" class="creation-input title">
-                <input type="text" placeholder="Título do seu quizz" class="creation-input title">
-                <input type="text" placeholder="Título do seu quizz" class="creation-input title">
-                <input type="text" placeholder="Título do seu quizz" class="creation-input title">
+                <p class="error-message title"></p>
+                <input type="text" placeholder="URL da imagem do seu quizz" class="creation-input url">
+                <p class="error-message url"></p>
+                <input type="text" placeholder="Quantidade de perguntas do quizz" class="creation-input questions">
+                <p class="error-message questions"></p>
+                <input type="text" placeholder="Quantidade de níveis do quizz" class="creation-input levels">
+                <p class="error-message levels"></p>
             </div>
-            <button class="proceed-to-questions">Prosseguir pra criar perguntas</button>
+            <button class="proceed-to-questions" onClick="initQuizz()">Prosseguir pra criar perguntas</button>
+            <p class="error-message show-errors-begin-page"></p>
         </div>
+        <div class="questions-page" style="display: none;">
+            <p class="call-to-creation">Crie suas perguntas</p>
+            <div class="question-keeper">
+                <p class="call-to-creation">Pergunta 1</p>
+                <ion-icon name="create-sharp" class="icon-edit-question"></ion-icon>
+            </div>
+            <div class="question-config">
+                <p class="call-to-creation">Pergunta 1</p>
+                <input type="text" placeholder="Título do seu quizz" class="creation-input ">
+                <p class="error-message title">Erro no título</p>
+                <input type="text" placeholder="Título do seu quizz" class="creation-input ">
+                <p class="error-message title">Erro no título</p>
+                <p class="call-to-creation">Resposta Correta</p>
+                <input type="text" placeholder="Título do seu quizz" class="creation-input ">
+                <p class="error-message title">Erro no título</p>
+                <input type="text" placeholder="Título do seu quizz" class="creation-input ">
+                <p class="error-message title">Erro no título</p>
+
+            </div>
+        </div>
+        .
     </div>
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="scripts/script.js"></script>
+    <script src="scripts/createQuizz.js"></script>
 </body>
 
 </html>
