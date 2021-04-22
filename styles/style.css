@@ -3,6 +3,9 @@ body {
   background-color: #fafafa;
 }
 .top {
+  z-index: 2;
+  position: fixed;
+  top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,11 +13,11 @@ body {
   width: 100%;
   height: 70px;
   color: #ffffff;
-  margin-left: 0;
-  margin-right: 0;
   font-size: 37px;
 }
-.quizzes-list {
+.quizzes-list,
+.quizz-page {
+  margin-top: 70px;
   display: flex;
   flex-flow: wrap;
   justify-content: center;
@@ -28,29 +31,35 @@ body {
   width: 1051px;
   display: flex;
 }
-.empty {
-  justify-content: center;
-  align-items: center;
+.quizzes-list .empty {
   border: 1px dashed #b9b9b9;
   border-radius: 5px;
 }
-.quizzes-list .user .filled-list .title {
+.quizzes-list .filled-list .title {
   display: flex;
   align-items: center;
 }
-.quizzes-list .user .filled-list ion-icon {
+.quizzes-list .filled-list ion-icon {
   margin-left: 17px;
   color: #ec362d;
   font-size: 35px;
   cursor: pointer;
 }
-.quizzes-list .user .empty-list h2 {
+.quizzes-list .empty-list {
+  display: flex;
+  width: 100%;
+  height: 181px;
+  flex-flow: nowrap column;
+  align-items: center;
+}
+.quizzes-list .empty-list h2 {
+  margin-top: 30px;
   text-align: center;
   font-size: 20px;
   color: #b9b9b9;
 }
-.quizzes-list .user .empty-list button {
-  margin: 20px;
+.quizzes-list .empty-list button {
+  margin-top: 20px;
   width: 151px;
   height: 40px;
   color: #ec362d;
@@ -111,6 +120,76 @@ body {
 .quizzes-list .all {
   width: 1051px;
   margin-top: 48px;
+}
+.quizz-page .banner {
+  position: relative;
+  width: 100%;
+  height: 227px;
+  background-color: teal;
+}
+.quizz-page .banner img {
+  width: 100%;
+  height: 227px;
+}
+.quizz-page .quizz-title {
+  position: absolute;
+  width: 100%;
+  height: 227px;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.quizz-page h1 {
+  color: white;
+  font-size: 39px;
+}
+.quizz-page .obscure {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.6;
+}
+.quizz-page .question {
+  width: 759px;
+  margin-top: 42px;
+  padding: 35px;
+}
+.quizz-page .question-title {
+  height: 138px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #434ca0;
+}
+.quizz-page .question-title h1 {
+  font-weight: 700;
+  font-size: 20px;
+  text-align: center;
+  color: white;
+  overflow-wrap: break-word;
+}
+.quizz-page .options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.quizz-page .item {
+  width: 320px;
+  margin-top: 20px;
+}
+.quizz-page .item img {
+  width: 320px;
+  height: 170px;
+}
+.quizz-page .item h2 {
+  margin-top: 7px;
+  font-size: 20px;
+  overflow-wrap: break-word;
+}
+.hidden {
+  display: none;
 }
 .begin-page {
   display: flex;
@@ -174,15 +253,15 @@ body {
   text-align: left;
   font-size: 13px;
 }
-.questions-page{
+.questions-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin-top:71px;
+  margin-top: 71px;
   box-sizing: border-box;
 }
-.question-keeper{
+.question-keeper {
   height: 74px;
   width: 600px;
   display: flex;
@@ -190,18 +269,18 @@ body {
   align-items: center;
   padding-left: 17px;
   padding-right: 20px;
-  background: #FFFFFF;
+  background: #ffffff;
   margin-top: 22px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
-.icon-edit-question{
-  font-size: 26px; 
+.icon-edit-question {
+  font-size: 26px;
 }
-.question-config{
+.question-config {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   padding-bottom: 24px;
   padding-left: 16px;
@@ -213,8 +292,26 @@ body {
   margin-bottom: 27px;
 }
 
-@media (max-width: 1100px){
-  .main-info{
+@media (max-width: 1100px) {
+  .quizzes-list {
+    margin-left: 17px;
+    margin-right: 17px;
+    width: calc(100%-37px);
+  }
+  .quizzes-list .user {
+    width: calc(100%-37px);
+  }
+  .quizzes-list .all {
+    width: calc(100%-37px);
+  }
+  .quizzes-list .quizzes {
+    flex-flow: nowrap column;
+    align-items: center;
+  }
+  .quizzes-list .quizz {
+    margin-right: 0;
+  }
+  .main-info {
     width: 100%;
     margin-bottom: 29px;
   }
@@ -222,16 +319,16 @@ body {
     width: 323px;
     font-size: 18px;
   }
-  .call-to-creation{
+  .call-to-creation {
     font-size: 20px;
   }
-  .questions-page{
+  .questions-page {
     margin-top: 37px;
   }
-  .question-keeper{
+  .question-keeper {
     width: 100%;
   }
-  .question-config{
+  .question-config {
     width: 100%;
   }
   .questions-page .proceed-to-next{
