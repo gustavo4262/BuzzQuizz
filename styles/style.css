@@ -191,12 +191,14 @@ body {
 .hidden {
   display: none;
 }
+.quizz-creation{
+  margin-top: 140px;
+}
 .begin-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin-top: 37px;
   box-sizing: border-box;
 }
 .call-to-creation {
@@ -258,7 +260,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin-top: 71px;
   box-sizing: border-box;
 }
 .question-keeper {
@@ -322,8 +323,8 @@ body {
   .call-to-creation {
     font-size: 20px;
   }
-  .questions-page {
-    margin-top: 37px;
+  .quizz-creation{
+    margin-top: 107px;
   }
   .question-keeper {
     width: 100%;

@@ -9,6 +9,8 @@ let numberLevels;
 
 /* Development */
     document.querySelector(".quizzes-list").classList.add("hidden");
+    document.querySelector(".quizz-page").classList.add("hidden");
+    document.querySelector(".quizz-creation").classList.remove("hidden");
 
 /*End development */ 
 
