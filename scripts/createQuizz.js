@@ -4,14 +4,16 @@ let quizzToSend = {
     questions: [],
     levels: []
 };
-let numberQuestions = 1;
-let numberLevels;
+let numberQuestions = 3;
+let numberLevels = 3;
+
 
 /* Development */
     document.querySelector(".quizzes-list").classList.add("hidden");
     document.querySelector(".quizz-page").classList.add("hidden");
     document.querySelector(".quizz-creation").classList.remove("hidden");
-
+    document.querySelector(".begin-page").classList.add("hidden");
+    initLevels();
 /*End development */ 
 
 function initQuizz(){
@@ -35,7 +37,7 @@ function initQuestions(){
     for(let i = 1; i<= numberQuestions; i++){
         questionsPage.innerHTML += `<div class="question-keeper question${i}" onClick="showFormQuestion(this)">
             <p class="call-to-creation">Pergunta ${i}</p>
-            <ion-icon name="create-sharp" class="icon-edit-question"></ion-icon>
+            <ion-icon name="create-sharp" class="icon-edit"></ion-icon>
         </div>
         <div class="question-config question${i} hidden">
             <p class="call-to-creation form-question">Pergunta ${i}</p>
@@ -76,7 +78,6 @@ function initQuestions(){
 
 function checkQuestionsPage(){
     let allQuestionsConfig = document.querySelectorAll(".question-config");
-    console.log('qtd conf ' + allQuestionsConfig.length);
     quizzToSend.questions = [];
     let boolAllRight = true;
     for(let i = 1; i <= allQuestionsConfig.length; i++){
@@ -85,7 +86,6 @@ function checkQuestionsPage(){
         let answersQuestion = checkAnswersQuestion(i);
         checks = textQuestion[0] && colorQuestion[0] && answersQuestion[0];
         if(!checks){
-            console.log('deu ruim');
             boolAllRight = false;
             continue;
         }
@@ -95,12 +95,42 @@ function checkQuestionsPage(){
             answers: answersQuestion[1]
         };
         quizzToSend.questions.push(oneQuestion);
-        console.log('deu bom');
     }
-    console.log(quizzToSend);
     if(!boolAllRight){
         return;
     }
+    resetQuestionsPage();
+    initLevels();
+}
+
+function initLevels(){
+    document.querySelector(".questions-page").classList.add("hidden");
+    let levelsPage = document.querySelector(".levels-page");
+    levelsPage.classList.remove("hidden");
+    levelsPage.innerHTML = `<p class="call-to-creation">Agora, decida os níveis</p>`;
+    for(let i = 1; i<= numberLevels; i++){
+        levelsPage.innerHTML += `<div class="level-keeper level${i}" onClick="showFormLevel(this)">
+            <p class="call-to-creation">Nível ${i}</p>
+            <ion-icon name="create-sharp" class="icon-edit"></ion-icon>
+        </div>
+        <div class="level-config level${i} hidden">
+            <p class="call-to-creation form-question">Nível ${i}</p>
+            <input type="text" placeholder="Título do nível" class="creation-input level-title">
+            <p class="error-message level-title"></p>
+            <input type="text" placeholder="% de acerto mínima" class="creation-input percent">
+            <p class="error-message percent"></p>
+            <input type="text" placeholder="URL da imagem do nível" class="creation-input level-url">
+            <p class="error-message level-url"></p>
+            <textarea type="text" placeholder="Descrição do nível" class="creation-input level-description"></textarea>
+            <p class="error-message level-description"></p>
+        </div>`;
+    }
+    levelsPage.innerHTML += `<p class="error-message show-errors-levels-page"></p>
+        <button class="proceed-to-next" onClick="checkLevelssPage()">Prosseguir pra criar níveis</button>`;
+}
+
+function checkLevelsPage(){
+
 }
 
 function checkAnswersQuestion(idxQuestion){
@@ -333,6 +363,30 @@ function resetBeginPage(){
     document.querySelector(".creation-input.levels").value = "";
 }
 
+function resetQuestionsPage(){
+    document.querySelector(".error-message.show-errors-questions-page").innerHTML = "";
+    for(let i = 1; i<= numberQuestions; i++){
+        let questionObj = document.querySelector(".question-config.question" + i);
+        questionObj.querySelector(".creation-input.question-text").value = "";
+        questionObj.querySelector(".error-message.question-text").innerHTML = "";
+
+        questionObj.querySelector(".creation-input.question-color").value = "";
+        questionObj.querySelector(".error-message.question-color").innerHTML = "";
+
+        questionObj.querySelector(".creation-input.right-answer").value = "";
+        questionObj.querySelector(".error-message.right-answer").innerHTML = "";
+
+        questionObj.querySelector(".creation-input.answer-url").value = "";
+        questionObj.querySelector(".error-message.answer-url").innerHTML = "";
+
+        for(let j = 1; j<= 3; j++){
+            let incorrectAnswer = questionObj.querySelector(".ia" + i);
+            incorrectAnswer.querySelector(".error-message.ia" + j).innerHTML = "";
+            incorrectAnswer.querySelector(".error-message.i-url" + j).value = "";
+        }
+    }
+}
+
 function showFormQuestion(obj){
     let allQuestionsKeeper = document.querySelectorAll(".question-keeper");
     for(let questionK of allQuestionsKeeper){
@@ -353,4 +407,26 @@ function showFormQuestion(obj){
     }
     obj.classList.add("hidden");
     document.querySelector(".question-config.question" + numberThisQuestion).classList.remove("hidden");
+}
+
+function showFormLevel(obj){
+    let allLevelsKeeper = document.querySelectorAll(".level-keeper");
+    for(let levelK of allLevelsKeeper){
+        if(levelK.classList.contains("hidden")){
+            levelK.classList.remove("hidden");
+        }
+    }
+    let allLevelsConfig = document.querySelectorAll(".level-config");
+    for(let levelC of allLevelsConfig){
+        if(!levelC.classList.contains("hidden")){
+            levelC.classList.add("hidden");
+        }
+    }
+    let classObj = obj.classList[1];
+    let numberThislevel;
+    if(classObj.slice(0,5) === "level"){
+        numberThislevel = classObj.slice(5,classObj.length);
+    }
+    obj.classList.add("hidden");
+    document.querySelector(".level-config.level" + numberThislevel).classList.remove("hidden");
 }
