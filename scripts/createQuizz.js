@@ -6,7 +6,7 @@ let quizzToSend = {
 };
 quizzToSend = {
     title: "título lindo do meu quiiiiiizzzz",
-    image: "http://",
+    image: "https://http.cat/411.jpg",
     questions: [
       {
         title: "Texto muito bonito da da pergunta 1",
@@ -14,17 +14,17 @@ quizzToSend = {
         answers: [
           {
             text: "a",
-            image: "http://",
+            image: "https://http.cat/411.jpg",
             isCorrectAnswer: true
           },
           {
             text: "a",
-            image: "http://",
+            image: "https://http.cat/411.jpg",
             isCorrectAnswer: false
           },
           {
             text: "a",
-            image: "http://",
+            image: "https://http.cat/411.jpg",
             isCorrectAnswer: false
           }
         ]
@@ -35,12 +35,12 @@ quizzToSend = {
         answers: [
           {
             text: "a",
-            image: "https://",
+            image: "https://http.cat/411.jpg/",
             isCorrectAnswer: true
           },
           {
             text: "a",
-            image: "http://",
+            image: "https://http.cat/411.jpg",
             isCorrectAnswer: false
           }
         ]
@@ -51,12 +51,12 @@ quizzToSend = {
         answers: [
           {
             text: "a",
-            image: "http://",
+            image: "https://http.cat/411.jpg",
             isCorrectAnswer: true
           },
           {
             text: "a",
-            image: "http://",
+            image: "https://http.cat/411.jpg",
             isCorrectAnswer: false
           }
         ]
@@ -83,9 +83,11 @@ let numberLevels;
 
 
 /* Development */
-    document.querySelector(".quizzes-list").classList.add("hidden");
+    let a =document.querySelector(".quizzes-list").classList.add("hidden");
     document.querySelector(".quizz-page").classList.add("hidden");
     document.querySelector(".quizz-creation").classList.remove("hidden");
+    document.querySelector(".begin-page").classList.add("hidden");
+    sendQuizzToServer();
 
 /*End development */ 
 
@@ -109,16 +111,46 @@ function showBeginPage(){
 }
 
 function sendQuizzToServer(){
+    if(!document.querySelector(".levels-page").classList.contains("hidden")){
+        document.querySelector(".levels-page").classList.add("hidden");
+    }
     const server = "https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes";
     const sendQuizzPromise = axios.post(server, quizzToSend);
 
-    sendQuizzPromise.then(()=>{
-        console.log("deu boom");
-        console.log(quizzToSend);
+    sendQuizzPromise.then((response)=>{
+        renderSuccessPage(response.data);
+        saveIdLocalStorage(response.data.id);
     });
     sendQuizzPromise.catch(()=>{
         console.log("deu ruimm");
     });
+}
+
+function saveIdLocalStorage(quizSentId){
+    const allUserQuizzes = "myBuzzQuizzesIds";
+    if(!localStorage.getItem(allUserQuizzes)){
+        let userIdsQuizzes = [quizSentId];
+        userIdsQuizzes = JSON.stringify(userIdsQuizzes);
+        localStorage.setItem(allUserQuizzes, userIdsQuizzes);
+    }
+    else{
+        const userSentIds = localStorage.getItem(allUserQuizzes);
+        let userIdsSent = JSON.parse(userSentIds);
+        userIdsSent.push(quizSentId);
+
+        const userIdsToSent = JSON.stringify(userIdsSent);
+        localStorage.setItem(allUserQuizzes, userIdsToSent);
+    }
+}
+
+function renderSuccessPage(quizSent){
+    const successPage = document.querySelector(".quizzes-list.success-quizz");
+    successPage.innerHTML = `<div class="quizz" onclick="selectQuizz(${quizSent.id})">
+    <img src="${quizSent.image}" alt="">  
+    <div class="quizz-title">  
+        <h2>${quizSent.title}</h2>
+    </div>
+    </div>`;
 }
 
 function initQuestions(){
