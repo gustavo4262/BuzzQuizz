@@ -4,29 +4,121 @@ let quizzToSend = {
     questions: [],
     levels: []
 };
-let numberQuestions = 3;
-let numberLevels = 3;
+quizzToSend = {
+    title: "título lindo do meu quiiiiiizzzz",
+    image: "http://",
+    questions: [
+      {
+        title: "Texto muito bonito da da pergunta 1",
+        color: "#123456",
+        answers: [
+          {
+            text: "a",
+            image: "http://",
+            isCorrectAnswer: true
+          },
+          {
+            text: "a",
+            image: "http://",
+            isCorrectAnswer: false
+          },
+          {
+            text: "a",
+            image: "http://",
+            isCorrectAnswer: false
+          }
+        ]
+      },
+      {
+        title: "Texto muito bonito da da pergunta 2",
+        color: "#123456",
+        answers: [
+          {
+            text: "a",
+            image: "https://",
+            isCorrectAnswer: true
+          },
+          {
+            text: "a",
+            image: "http://",
+            isCorrectAnswer: false
+          }
+        ]
+      },
+      {
+        title: "Texto muito bonito da da pergunta 3",
+        color: "#123456",
+        answers: [
+          {
+            text: "a",
+            image: "http://",
+            isCorrectAnswer: true
+          },
+          {
+            text: "a",
+            image: "http://",
+            isCorrectAnswer: false
+          }
+        ]
+      }
+    ],
+    levels: [
+      {
+        title: "Titulo muito bonito do nível belíssimo 1",
+        minValue: 90,
+        image: "http://asdfasdfasdfasdf",
+        text: "fasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd"
+      },
+      {
+        title: "Titulo muito bonito do nível belíssimo 2",
+        minValue: 0,
+        image: "http://",
+        text: "sfasjdflkjasdklçfjasdçfkjasdkçfjasdkçfjçasdkjTitulo muito bonito do nível belíssimo 1Titulo muito bonito do nível belíssimo 1Titulo muito bonito do nível belíssimo 1"
+      }
+    ]
+  }
+let numberQuestions;
+
+let numberLevels;
 
 
 /* Development */
     document.querySelector(".quizzes-list").classList.add("hidden");
     document.querySelector(".quizz-page").classList.add("hidden");
     document.querySelector(".quizz-creation").classList.remove("hidden");
-    document.querySelector(".begin-page").classList.add("hidden");
-    initLevels();
+
 /*End development */ 
 
 function initQuizz(){
     let isTitle = checkTitle();
     let isUrl = checkUrl();
     let isNumberQuestions = checkNumberQuestions();
-    let isNumberQuizzes = checkNumberQuizzes();
-    let checks = isTitle && isUrl && isNumberQuestions && isNumberQuizzes;
+    let isNumberLevels = checkNumberLevels();
+    let checks = isTitle && isUrl && isNumberQuestions && isNumberLevels;
     if(!checks){
         return;
     }
     resetBeginPage();
     initQuestions();
+}
+
+function showBeginPage(){
+    if(document.querySelector(".begin-page").classList.contains("hidden")){
+        document.querySelector(".begin-page").classList.remove("hidden");
+    }
+}
+
+function sendQuizzToServer(){
+    const server = "https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes";
+    const sendQuizzPromise = axios.post(server, quizzToSend);
+
+    sendQuizzPromise.then(()=>{
+        console.log("deu boom");
+        console.log(quizzToSend);
+    });
+    sendQuizzPromise.catch(()=>{
+        console.log("deu ruimm");
+    });
 }
 
 function initQuestions(){
@@ -76,6 +168,32 @@ function initQuestions(){
         <button class="proceed-to-next" onClick="checkQuestionsPage()">Prosseguir pra criar níveis</button>`;
 }
 
+function initLevels(){
+    document.querySelector(".questions-page").classList.add("hidden");
+    let levelsPage = document.querySelector(".levels-page");
+    levelsPage.classList.remove("hidden");
+    levelsPage.innerHTML = `<p class="call-to-creation">Agora, decida os níveis</p>`;
+    for(let i = 1; i<= numberLevels; i++){
+        levelsPage.innerHTML += `<div class="level-keeper level${i}" onClick="showFormLevel(this)">
+            <p class="call-to-creation">Nível ${i}</p>
+            <ion-icon name="create-sharp" class="icon-edit"></ion-icon>
+        </div>
+        <div class="level-config level${i} hidden">
+            <p class="call-to-creation form-question">Nível ${i}</p>
+            <input type="text" placeholder="Título do nível" class="creation-input level-title">
+            <p class="error-message level-title"></p>
+            <input type="text" placeholder="% de acerto mínima" class="creation-input percent">
+            <p class="error-message percent"></p>
+            <input type="text" placeholder="URL da imagem do nível" class="creation-input level-url">
+            <p class="error-message level-url"></p>
+            <textarea type="text" placeholder="Descrição do nível" class="creation-input level-description"></textarea>
+            <p class="error-message level-description"></p>
+        </div>`;
+    }
+    levelsPage.innerHTML += `<p class="error-message show-errors-levels-page"></p>
+        <button class="proceed-to-next" onClick="checkLevelsPage()">Finalizar Quizz</button>`;
+}
+
 function checkQuestionsPage(){
     let allQuestionsConfig = document.querySelectorAll(".question-config");
     quizzToSend.questions = [];
@@ -103,34 +221,105 @@ function checkQuestionsPage(){
     initLevels();
 }
 
-function initLevels(){
-    document.querySelector(".questions-page").classList.add("hidden");
-    let levelsPage = document.querySelector(".levels-page");
-    levelsPage.classList.remove("hidden");
-    levelsPage.innerHTML = `<p class="call-to-creation">Agora, decida os níveis</p>`;
-    for(let i = 1; i<= numberLevels; i++){
-        levelsPage.innerHTML += `<div class="level-keeper level${i}" onClick="showFormLevel(this)">
-            <p class="call-to-creation">Nível ${i}</p>
-            <ion-icon name="create-sharp" class="icon-edit"></ion-icon>
-        </div>
-        <div class="level-config level${i} hidden">
-            <p class="call-to-creation form-question">Nível ${i}</p>
-            <input type="text" placeholder="Título do nível" class="creation-input level-title">
-            <p class="error-message level-title"></p>
-            <input type="text" placeholder="% de acerto mínima" class="creation-input percent">
-            <p class="error-message percent"></p>
-            <input type="text" placeholder="URL da imagem do nível" class="creation-input level-url">
-            <p class="error-message level-url"></p>
-            <textarea type="text" placeholder="Descrição do nível" class="creation-input level-description"></textarea>
-            <p class="error-message level-description"></p>
-        </div>`;
+function checkLevelsPage(){
+    let allLevelsConfig = document.querySelectorAll(".level-config");
+    quizzToSend.levels = [];
+    let boolAllRight = true;
+    for(let i = 1; i<= allLevelsConfig.length; i++){
+        let titleLevel = checkTitleLevel(i);
+        let percentageLevel = checkPercentageLevel(i);
+        let urlLevel = checkUrlLevel(i);
+        let descriptionLevel = checkDescriptionLevel(i);
+        let checks = titleLevel[0] && percentageLevel[0] && urlLevel[0] && descriptionLevel[0];
+        if(!checks){
+            boolAllRight = false;
+            continue;
+        }
+        let oneLevel = {
+            title: titleLevel[1],
+            minValue: percentageLevel[1],
+            image: urlLevel[1],
+            text: descriptionLevel[1]
+        };
+        quizzToSend.levels.push(oneLevel);
     }
-    levelsPage.innerHTML += `<p class="error-message show-errors-levels-page"></p>
-        <button class="proceed-to-next" onClick="checkLevelssPage()">Prosseguir pra criar níveis</button>`;
+    if(!boolAllRight){
+        return;
+    }
+    let oneLevelZero = false;
+    for(let i = 0; i< quizzToSend.levels.length; i++){
+        if(quizzToSend.levels[i].minValue === 0){
+            oneLevelZero = true;
+        }
+    }
+    if(!oneLevelZero){
+        document.querySelector(".error-message.show-errors-levels-page").innerHTML += ". Pelo menos um nível deve ter porcentagem de acertos igual a 0%";
+        return;
+    }
+    resetLevelsPage();
+    sendQuizzToServer();
 }
 
-function checkLevelsPage(){
+function checkDescriptionLevel(idxLevel){
+    let levelObj = document.querySelector(".level-config.level" + idxLevel);
+    let inputDescription = levelObj.querySelector(".creation-input.level-description").value;
+    inputDescription = inputDescription.trim();
+    let isAccepted = (inputDescription.length >= 30);
+    let errorMessage = levelObj.querySelector(".error-message.level-description");
+    if(!isAccepted){
+        errorMessage.innerHTML = "A descrição do nível deve ter pelo menos 30 caracteres";
+        document.querySelector(".error-message.show-errors-levels-page").innerHTML = "Corrija os campos com erros";
+        return [false, false];
+    }
+    errorMessage.innerHTML = "";
+    return [true, inputDescription];
+}
 
+function checkUrlLevel(idxLevel){
+    let levelObj = document.querySelector(".level-config.level" + idxLevel);
+    let inputUrl = levelObj.querySelector(".creation-input.level-url").value;
+    inputUrl = inputUrl.trim();
+    let isAccepted = (inputUrl.slice(0,8) === "https://") || (inputUrl.slice(0,7) === "http://");
+    isAccepted = isAccepted && !inputUrl.includes(" ");
+    let errorMessage = levelObj.querySelector(".error-message.level-url");
+    if(!isAccepted){
+        errorMessage.innerHTML = "A entrada deve ter formato de URL";
+        document.querySelector(".error-message.show-errors-levels-page").innerHTML = "Corrija os campos com erros";
+        return [false, false];
+    }
+    errorMessage.innerHTML = "";
+    return [true, inputUrl];
+}
+
+function checkPercentageLevel(idxLevel){
+    let levelObj = document.querySelector(".level-config.level" + idxLevel);
+    let inputPercent = levelObj.querySelector(".creation-input.percent").value;
+    inputPercent = inputPercent.trim();
+    inputPercent = parseInt(inputPercent);
+    let isAccepted = typeof(inputPercent) === "number" && inputPercent >= 0 && inputPercent <= 100;
+    let errorMessage = levelObj.querySelector(".error-message.percent");
+    if(!isAccepted){
+        errorMessage.innerHTML = "Deve ser um inteiro entre 0 e 100";
+        document.querySelector(".error-message.show-errors-levels-page").innerHTML = "Corrija os campos com erros";
+        return [false, false];
+    }
+    errorMessage.innerHTML = "";
+    return [true, inputPercent];
+}
+
+function checkTitleLevel(idxLevel){
+    let levelObj = document.querySelector(".level-config.level" + idxLevel);
+    let inputTitle = levelObj.querySelector(".creation-input.level-title").value;
+    inputTitle = inputTitle.trim();
+    let isAccepted = (inputTitle.length >= 10);
+    let errorMessage = levelObj.querySelector(".error-message.level-title");
+    if(!isAccepted){
+        errorMessage.innerHTML = "O Título do Nível deve ter no mínimo 10 caracteres";
+        document.querySelector(".error-message.show-errors-levels-page").innerHTML = "Corrija os campos com erros";
+        return [false, false];
+    }
+    errorMessage.innerHTML = "";
+    return [true, inputTitle];
 }
 
 function checkAnswersQuestion(idxQuestion){
@@ -333,7 +522,7 @@ function checkNumberQuestions(){
     return true;
 }
 
-function checkNumberQuizzes(){
+function checkNumberLevels(){
     let inputNumber = document.querySelector(".creation-input.levels").value;
     inputNumber = inputNumber.trim();
     inputNumber = parseInt(inputNumber);
@@ -380,10 +569,26 @@ function resetQuestionsPage(){
         questionObj.querySelector(".error-message.answer-url").innerHTML = "";
 
         for(let j = 1; j<= 3; j++){
-            let incorrectAnswer = questionObj.querySelector(".ia" + i);
+            let incorrectAnswer = questionObj.querySelector(".ia" + j);
             incorrectAnswer.querySelector(".error-message.ia" + j).innerHTML = "";
             incorrectAnswer.querySelector(".error-message.i-url" + j).value = "";
         }
+    }
+}
+
+function resetLevelsPage(){
+    document.querySelector(".error-message.show-errors-levels-page").innerHTML = "";
+    for(let i = 1; i <= numberLevels; i++){
+        let levelObj = document.querySelector(".level-config.level" + i);
+        levelObj.querySelector(".creation-input.level-title").value = "";
+        levelObj.querySelector(".creation-input.percent").value = "";
+        levelObj.querySelector(".creation-input.level-url").value = "";
+        levelObj.querySelector(".creation-input.level-description").value = "";
+
+        levelObj.querySelector(".error-message.level-title").innerHTML = "";
+        levelObj.querySelector(".error-message.percent").innerHTML = "";
+        levelObj.querySelector(".error-message.level-url").innerHTML = "";
+        levelObj.querySelector(".error-message.level-description").innerHTML = "";
     }
 }
 
