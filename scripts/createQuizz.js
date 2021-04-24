@@ -83,11 +83,12 @@ quizzToSend = {
 };
 
 /* Development */
-/*let a =document.querySelector(".quizzes-list").classList.add("hidden");
+    document.querySelector(".quizzes-list").classList.add("hidden");
     document.querySelector(".quizz-page").classList.add("hidden");
-    document.querySelector(".quizz-creation").classList.remove("hidden");
-    document.querySelector(".begin-page").classList.add("hidden");*/
+    document.querySelector(".quizz-creation").classList.add("hidden");
 /*End development */
+
+
 
 function initQuizz() {
   let isTitle = checkTitle();
@@ -109,7 +110,6 @@ function sendQuizzToServer() {
   const server =
     "https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes";
   const sendQuizzPromise = axios.post(server, quizzToSend);
-
   sendQuizzPromise.then((response) => {
     renderSuccessPage(response.data);
     saveIdLocalStorage(response.data.id);
