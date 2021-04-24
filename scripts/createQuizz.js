@@ -4,6 +4,8 @@ let quizzToSend = {
     questions: [],
     levels: []
 };
+let numberQuestions;
+let numberLevels;
 quizzToSend = {
     title: "título AAAAAAAAAAA do meu quiiiiiizzzz",
     image: "https://http.cat/411.jpg",
@@ -77,18 +79,13 @@ quizzToSend = {
       }
     ]
   }
-let numberQuestions;
-
-let numberLevels;
 
 
 /* Development */
-    let a =document.querySelector(".quizzes-list").classList.add("hidden");
+    /*let a =document.querySelector(".quizzes-list").classList.add("hidden");
     document.querySelector(".quizz-page").classList.add("hidden");
     document.querySelector(".quizz-creation").classList.remove("hidden");
-    document.querySelector(".begin-page").classList.add("hidden");
-    sendQuizzToServer();
-
+    document.querySelector(".begin-page").classList.add("hidden");*/
 /*End development */ 
 
 function initQuizz(){
@@ -105,6 +102,16 @@ function initQuizz(){
 }
 
 function showBeginPage(){
+    if(!document.querySelector(".quizzes-list").classList.contains("hidden")){
+        document.querySelector(".begin-page").classList.add("hidden");
+    }
+    if(!document.querySelector(".quizz-page").classList.contains("hidden")){
+        document.querySelector(".quizz-page").classList.add("hidden");
+    }
+    if(document.querySelector(".quizz-creation").classList.contains("hidden")){
+        document.querySelector(".quizz-creation").classList.remove("hidden");
+    }
+
     if(document.querySelector(".begin-page").classList.contains("hidden")){
         document.querySelector(".begin-page").classList.remove("hidden");
     }

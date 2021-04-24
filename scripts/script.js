@@ -12,7 +12,7 @@ function loadQuizzes() {
 function updateQuizzes(response) {
   console.log("loaded");
   response.data.forEach((quiz) => {
-    let listUsed = isFromUser(quiz) ? "user" : "all";
+    let listUsed = isFromUser(quiz.id) ? "user" : "all";
     renderQuizz(quiz, listUsed);
   });
 }
@@ -155,6 +155,15 @@ function renderQuestion(question) {
   questionsElement.innerHTML += questionHTML;
 }
 
-function isFromUser(quiz) {
+function isFromUser(quizId) {
+  const allUserQuizzes = "myBuzzQuizzesIds";
+  if(!localStorage.getItem(allUserQuizzes)){
+    return false;
+  }
+  const userIds = localStorage.getItem(allUserQuizzes);
+  const arrayUserIds = JSON.parse(userIds);
+  if(arrayUserIds.includes(quizId)){
+    return true;
+  }
   return false;
 }
