@@ -53,30 +53,53 @@
                 <input type="text" placeholder="Quantidade de níveis do quizz" class="creation-input levels">
                 <p class="error-message levels"></p>
             </div>
-            <button class="proceed-to-questions" onClick="initQuizz()">Prosseguir pra criar perguntas</button>
             <p class="error-message show-errors-begin-page"></p>
+            <button class="proceed-to-next" onClick="initQuizz()">Prosseguir pra criar perguntas</button>
         </div>
-        <div class="questions-page" style="display: none;">
-            <p class="call-to-creation">Crie suas perguntas</p>
-            <div class="question-keeper">
+        <div class="questions-page hidden">
+            <!-- <p class="call-to-creation">Crie suas perguntas</p>
+            <div class="question-keeper question1" onClick="showFormQuestion(this)">
                 <p class="call-to-creation">Pergunta 1</p>
                 <ion-icon name="create-sharp" class="icon-edit-question"></ion-icon>
             </div>
-            <div class="question-config">
-                <p class="call-to-creation">Pergunta 1</p>
-                <input type="text" placeholder="Título do seu quizz" class="creation-input ">
-                <p class="error-message title">Erro no título</p>
-                <input type="text" placeholder="Título do seu quizz" class="creation-input ">
-                <p class="error-message title">Erro no título</p>
-                <p class="call-to-creation">Resposta Correta</p>
-                <input type="text" placeholder="Título do seu quizz" class="creation-input ">
-                <p class="error-message title">Erro no título</p>
-                <input type="text" placeholder="Título do seu quizz" class="creation-input ">
-                <p class="error-message title">Erro no título</p>
+            <div class="question-config question1 hidden">
+                <p class="call-to-creation form-question">Pergunta 1</p>
+                <input type="text" placeholder="Texto da pergunta" class="creation-input question-text">
+                <p class="error-message question-text"></p>
+                <input type="text" placeholder="Cor de fundo da pergunta" class="creation-input question-color">
+                <p class="error-message question-color"></p>
 
+                <p class="call-to-creation form-question">Resposta Correta</p>
+                <input type="text" placeholder="Resposta correta" class="creation-input right-answer">
+                <p class="error-message right-answer"></p>
+                <input type="text" placeholder="URL da imagem" class="creation-input answer-url">
+                <p class="error-message answer-url"></p>
+
+                <p class="call-to-creation form-question">Respostas Incorretas</p>
+                <div class="incorrect-answer ia1">
+                    <input type="text" placeholder="Resposta incorreta 1" class="creation-input ia1">
+                    <p class="error-message ia1"></p>
+                    <input type="text" placeholder="URL da imagem 1" class="creation-input i-url1">
+                    <p class="error-message i-url1"></p>
+                </div>
+                <div class="incorrect-answer ia2">
+                    <input type="text" placeholder="Resposta incorreta 2" class="creation-input ia2">
+                    <p class="error-message ia2"></p>
+                    <input type="text" placeholder="URL da imagem 2" class="creation-input i-url2">
+                    <p class="error-message i-url2"></p>
+                </div><div class="incorrect-answer ia3">
+                    <input type="text" placeholder="Resposta incorreta 3" class="creation-input ia3">
+                    <p class="error-message ia3"></p>
+                    <input type="text" placeholder="URL da imagem 3" class="creation-input i-url3">
+                    <p class="error-message i-url3"></p>
+                </div>
             </div>
+
+            <button class="proceed-to-next">Prosseguir pra criar níveis</button> -->
         </div>
-        .
+        <div class="levels-page hidden">
+
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
