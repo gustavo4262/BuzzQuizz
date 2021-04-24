@@ -1,4 +1,6 @@
 loadQuizzes();
+let answerScore = 0;
+let levels = [];
 
 function loadQuizzes() {
   let server =
@@ -38,46 +40,88 @@ function renderQuizzPage(response) {
   questions.forEach((question) => {
     renderQuestion(question);
   });
-  console.log(quiz);
+  levels = response.data.levels;
+  console.log(levels);
+  renderAnswer();
 }
 
 function selectAnswer(selectedElement) {
-  let question = selectedElement.parentNode;
+  let answers = selectedElement.parentNode;
+
+  let question = answers.parentNode;
   if (question.classList.contains("blocked")) {
     return;
   }
+  question.classList.add("blocked");
 
-  Array.from(question.children)
+  Array.from(answers.children)
     .filter((element) => element !== selectedElement)
     .forEach((element) => {
       element.style.opacity = 0.3;
     });
 
-  question.classList.add("blocked");
-
   let isCorrectAnswer = Boolean(JSON.parse(selectedElement.classList[1]));
   let text = selectedElement.querySelector("h2");
   text.style.color = isCorrectAnswer ? "green" : "red";
 
+  answerScore += isCorrectAnswer;
+  renderAnswer();
+
   let allQuestions = Array.from(question.parentNode.children);
   allQuestions.forEach((element, index) => {
     if (element === question) {
-      let nextQuestionIndex = index + 2;
-      let nextQuestion = allQuestions[nextQuestionIndex];
-      console.log(nextQuestion);
+      let nextTagIndex = index + 1;
+      let nextTag = allQuestions[nextTagIndex];
+      if (!nextTag) {
+        nextTag = document.querySelector(".answer");
+      }
       let scrollOptions = {
         behavior: "smooth",
         block: "end",
         inline: "start",
       };
-      setTimeout(() => nextQuestion.scrollIntoView(scrollOptions), 2000);
+      setTimeout(() => nextTag.scrollIntoView(scrollOptions), 2000);
     }
   });
 }
 
-function errorConn() {
-  console.log("Error");
-  console.error();
+function renderAnswer() {
+  let score = Math.round((answerScore * 100) / levels.length);
+  for (let i = 0; i < levels.length; i++) {
+    let level = levels[i];
+    console.log(level.minValue, level.title, score);
+    if (score <= level.minValue || i === levels.length - 1) {
+      console.log("ok", level.title, level.text);
+      let answerHTML = `
+              <div class="question-title ">
+              <h1>${level.title}</h1>
+              </div>
+              <div class="description">
+              <img src="${level.image}">
+              <h2>${level.text}</h2>
+              </div>
+              `;
+      let answerElement = document.querySelector(".answer");
+      answerElement.innerHTML = answerHTML;
+      return;
+    }
+  }
+}
+
+function restartQuizz() {
+  document.querySelectorAll(".options").forEach((option) => {
+    Array.from(option.children).forEach((item) => {
+      console.log(item);
+      item.style.opacity = 1;
+      let text = item.querySelector("h2");
+      if (text.style.color !== "#000000") text.style.color = "#000000";
+    });
+  });
+  document.querySelectorAll(".blocked").forEach((question) => {
+    question.classList.remove("blocked");
+  });
+  window.scrollTo(0, 0);
+  answerScore = 0;
 }
 
 function changeScreen(screenToReveal) {
@@ -87,7 +131,12 @@ function changeScreen(screenToReveal) {
   screenToHide.classList.add("hidden");
   if (screenToHide.classList.contains("quizz-page")) {
     screenToHide.innerHTML = `<div class="banner"></div>
-      <div class="questions"></div>`;
+      <div class="questions"></div>
+      <div class="answer"></div>
+      <button onclick="restartQuizz()" class="restart">Reiniciar Quizz</button>
+      <button onclick="changeScreen('quizzes-list')">Voltar pra home</button>`;
+    answerScore = 0;
+    levels = [];
   }
   screenToReveal = document.querySelector(`.${screenToReveal}`);
   screenToReveal.classList.remove("hidden");
@@ -143,9 +192,12 @@ function renderQuestion(question) {
     optionsElement.innerHTML += answerHTML;
   });
 
-  let questionsElement = document.querySelector(".quizz-page .questions");
-  questionsElement.appendChild(questionTitle);
-  questionsElement.appendChild(optionsElement);
+  let allQuestions = document.querySelector(".quizz-page .questions");
+  let questionElement = document.createElement("div");
+  questionElement.setAttribute("class", "question");
+  questionElement.appendChild(questionTitle);
+  questionElement.appendChild(optionsElement);
+  allQuestions.appendChild(questionElement);
 }
 
 function isFromUser(quizId) {
@@ -159,4 +211,9 @@ function isFromUser(quizId) {
     return true;
   }
   return false;
+}
+
+function errorConn() {
+  console.log("Error");
+  console.error();
 }
