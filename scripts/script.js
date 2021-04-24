@@ -6,13 +6,13 @@ function loadQuizzes() {
   let server =
     "https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes";
   let request = axios.get(server);
-  console.log("loading");
+  changeScreen("loading-page");
   request.then(updateQuizzes);
   request.catch(errorConn);
 }
 
 function updateQuizzes(response) {
-  console.log("loaded");
+  changeScreen("quizzes-list");
   response.data.forEach((quiz) => {
     let listUsed = isFromUser(quiz.id) ? "user" : "all";
     if (listUsed == "user") {
@@ -27,6 +27,7 @@ function updateQuizzes(response) {
 function selectQuizz(quizId) {
   let server = `https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/${quizId}`;
   let request = axios.get(server);
+  changeScreen("loading-page");
   request.then(renderQuizzPage);
   request.catch(errorConn);
 }
