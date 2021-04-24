@@ -33,6 +33,7 @@ function renderQuizzPage(response) {
   questions.forEach((question) => {
     renderQuestion(question);
   });
+  console.log(quiz);
 }
 
 function selectAnswer(selectedElement) {
@@ -49,9 +50,7 @@ function selectAnswer(selectedElement) {
 
   question.classList.add("blocked");
 
-  let isCorrectAnswer = Boolean(
-    JSON.parse(selectedElement.querySelector("span").innerHTML)
-  );
+  let isCorrectAnswer = Boolean(JSON.parse(selectedElement.classList[1]));
   let text = selectedElement.querySelector("h2");
   text.style.color = isCorrectAnswer ? "green" : "red";
 
@@ -129,25 +128,21 @@ function renderQuestion(question) {
 
   let questionHTML = `
             <div class="options">
-                <div class="item" onclick="selectAnswer(this)">
+                <div class="item ${answers[0].isCorrectAnswer}" onclick="selectAnswer(this)">
                     <img src="${answers[0].image}">
                     <h2>${answers[0].text}</h2>
-                    <span class="hidden">${answers[0].isCorrectAnswer}</span>
                 </div>
-                <div class="item" onclick="selectAnswer(this)">
+                <div class="item ${answers[1].isCorrectAnswer}" onclick="selectAnswer(this)">
                     <img src="${answers[1].image}">
                     <h2>${answers[1].text}</h2>
-                    <span class="hidden">${answers[1].isCorrectAnswer}</span>
                 </div>
-                <div class="item" onclick="selectAnswer(this)">
+                <div class="item ${answers[2].isCorrectAnswer}" onclick="selectAnswer(this)">
                     <img src="${answers[2].image}">
                     <h2>${answers[2].text}</h2>
-                    <span class="hidden">${answers[2].isCorrectAnswer}</span>
                 </div>
-                <div class="item" onclick="selectAnswer(this)">
+                <div class="item ${answers[3].isCorrectAnswer}" onclick="selectAnswer(this)">
                     <img src="${answers[3].image}">
                     <h2>${answers[3].text}</h2>
-                    <span class="hidden">${answers[3].isCorrectAnswer}</span>
                 </div>
             </div>`;
   let questionsElement = document.querySelector(".quizz-page .questions");
