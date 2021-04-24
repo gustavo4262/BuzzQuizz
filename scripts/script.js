@@ -77,10 +77,17 @@ function errorConn() {
 }
 
 function changeScreen(screenToReveal) {
-  let hidden = document.body.querySelector(":nth-child(2)");
-  hidden.classList.add("hidden");
-  let revealed = document.querySelector(`.${screenToReveal}`);
-  revealed.classList.remove("hidden");
+  let screenToHide = Array.from(document.body.children).filter(
+    (el) => !el.classList.contains("hidden")
+  )[1];
+  screenToHide.classList.add("hidden");
+  console.log(screenToHide);
+  if (screenToHide.classList.contains("quizz-page")) {
+    screenToHide.innerHTML = `<div class="banner"></div>
+      <div class="questions"></div>`;
+  }
+  screenToReveal = document.querySelector(`.${screenToReveal}`);
+  screenToReveal.classList.remove("hidden");
   window.scrollTo(0, 0);
 }
 

@@ -14,6 +14,7 @@ body {
   height: 69px;
   color: #ffffff;
   font-size: 37px;
+  cursor: pointer;
 }
 .quizzes-list,
 .quizz-page {
@@ -190,7 +191,7 @@ body {
 .hidden {
   display: none;
 }
-.quizz-creation{
+.quizz-creation {
   margin-top: 140px;
 }
 .begin-page {
@@ -204,7 +205,7 @@ body {
   font-size: 23px;
   font-weight: bold;
 }
-.call-to-creation.form-question{
+.call-to-creation.form-question {
   display: inline-block;
   margin-bottom: 12px;
   margin-top: 28px;
@@ -230,7 +231,7 @@ body {
   border-radius: 5px;
   color: #bababa;
 }
-.creation-input.level-description{
+.creation-input.level-description {
   height: 177px;
   max-height: 177px;
   max-width: 100%;
@@ -240,7 +241,7 @@ body {
   padding-top: 3px;
   display: inline-block;
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 15px;
   color: #bababa;
 }
@@ -248,7 +249,7 @@ body {
   font-style: italic;
   color: #bababa;
 }
-.creation-input.level-description::placeholder{
+.creation-input.level-description::placeholder {
   font-style: italic;
   color: #bababa;
 }
@@ -261,30 +262,32 @@ body {
   width: 368px;
   font-size: 21px;
 }
-.questions-page .proceed-to-next{
+.questions-page .proceed-to-next {
   margin-top: 81px;
   margin-bottom: 30px;
 }
-.levels-page .proceed-to-next{
+.levels-page .proceed-to-next {
   margin-top: 81px;
   margin-bottom: 30px;
 }
-.error-message{
-  color: #EC362D;
+.error-message {
+  color: #ec362d;
   display: inline-block;
   margin-bottom: 5px;
   margin-top: 5px;
   text-align: left;
   font-size: 13px;
 }
-.questions-page, .levels-page {
+.questions-page,
+.levels-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
 }
-.question-keeper, .level-keeper {
+.question-keeper,
+.level-keeper {
   height: 74px;
   width: 600px;
   display: flex;
@@ -299,7 +302,8 @@ body {
 .icon-edit {
   font-size: 26px;
 }
-.question-config, .level-config {
+.question-config,
+.level-config {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -311,7 +315,7 @@ body {
   width: 600px;
   margin-top: 22px;
 }
-.incorrect-answer{
+.incorrect-answer {
   margin-bottom: 27px;
 }
 
@@ -338,31 +342,33 @@ body {
     width: 100%;
     margin-bottom: 29px;
   }
-  .proceed-to-next{
+  .proceed-to-next {
     width: 323px;
     font-size: 18px;
   }
   .call-to-creation {
     font-size: 20px;
   }
-  .quizz-creation{
+  .quizz-creation {
     margin-top: 107px;
   }
-  .question-keeper, .level-keeper {
+  .question-keeper,
+  .level-keeper {
     width: 100%;
   }
-  .question-config, .level-config {
+  .question-config,
+  .level-config {
     width: 100%;
   }
-  .questions-page .proceed-to-next{
+  .questions-page .proceed-to-next {
     margin-top: 46px;
   }
-  .levels-page .proceed-to-next{
+  .levels-page .proceed-to-next {
     margin-top: 46px;
   }
 }
-@media (max-width: 330px){
-  .proceed-to-next{
+@media (max-width: 330px) {
+  .proceed-to-next {
     width: 86%;
     font-size: 16px;
   }
