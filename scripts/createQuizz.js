@@ -146,6 +146,12 @@ function renderSuccessPage(quizSent) {
 
   successPage.innerHTML += `<button class="proceed-to-next final-page" onClick="selectQuizz(${quizSent.id})">Acessar Quiz</button>`;
   successPage.innerHTML += `<a class="back-home" onClick="goBackHome()">Voltar para Home</a>`;
+  if(document.querySelector(".quizz-creation").classList.contains("hidde")){
+      document.querySelector(".quizz-creation").classList.remove("hidden");
+  }
+  if(successPage.classList.contains("hidden")){
+      successPage.classList.remove("hidden");
+  }
 }
 
 function initQuestions() {
@@ -754,6 +760,6 @@ function showFormLevel(obj) {
     .classList.remove("hidden");
 }
 function goBackHome() {
-  document.querySelector(".quizzes-list").classList.remove("hidden");
-  document.querySelector(".success-page").classList.add("hidden");
+    loadQuizzes();
+    changeScreen("quizzes-list");
 }
