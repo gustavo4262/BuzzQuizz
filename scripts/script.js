@@ -85,7 +85,6 @@ function changeScreen(screenToReveal) {
     (el) => !el.classList.contains("hidden")
   )[1];
   screenToHide.classList.add("hidden");
-  console.log(screenToHide);
   if (screenToHide.classList.contains("quizz-page")) {
     screenToHide.innerHTML = `<div class="banner"></div>
       <div class="questions"></div>`;
@@ -131,28 +130,22 @@ function renderQuestion(question) {
   title.textContent = question.title;
   questionTitle.appendChild(title);
 
-  let questionHTML = `
-            <div class="options">
-                <div class="item ${answers[0].isCorrectAnswer}" onclick="selectAnswer(this)">
-                    <img src="${answers[0].image}">
-                    <h2>${answers[0].text}</h2>
-                </div>
-                <div class="item ${answers[1].isCorrectAnswer}" onclick="selectAnswer(this)">
-                    <img src="${answers[1].image}">
-                    <h2>${answers[1].text}</h2>
-                </div>
-                <div class="item ${answers[2].isCorrectAnswer}" onclick="selectAnswer(this)">
-                    <img src="${answers[2].image}">
-                    <h2>${answers[2].text}</h2>
-                </div>
-                <div class="item ${answers[3].isCorrectAnswer}" onclick="selectAnswer(this)">
-                    <img src="${answers[3].image}">
-                    <h2>${answers[3].text}</h2>
-                </div>
-            </div>`;
+  let optionsElement = document.createElement("div");
+  optionsElement.setAttribute("class", "options");
+
+  answers.forEach((answer) => {
+    let answerHTML = `
+    <div class="item ${answer.isCorrectAnswer}" onclick="selectAnswer(this)">
+        <img src="${answer.image}">
+        <h2>${answer.text}</h2>
+    </div>
+    `;
+    optionsElement.innerHTML += answerHTML;
+  });
+
   let questionsElement = document.querySelector(".quizz-page .questions");
   questionsElement.appendChild(questionTitle);
-  questionsElement.innerHTML += questionHTML;
+  questionsElement.appendChild(optionsElement);
 }
 
 function isFromUser(quizId) {
