@@ -120,12 +120,12 @@ function sendQuizzToServer() {
     listIdsKeysLocalStorage(response.data);
   });
   sendQuizzPromise.catch(() => {
-    console.log("deu ruimm");
+    alert("Infelizmente não foi possível criar seu quiz! Tente novamente");
+    changeScreen("quizzes-list");
   });
 }
 
 function listIdsKeysLocalStorage(quiz){
-    
     if(!localStorage.getItem(listIdsAndKeys)){
         let userIdsKeys = [[quiz.id, quiz.key]];
         userIdsKeys = JSON.stringify(userIdsKeys);
