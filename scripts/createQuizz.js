@@ -5,7 +5,7 @@ let quizzToSend = {
     levels: []
 };
 quizzToSend = {
-    title: "título lindo do meu quiiiiiizzzz",
+    title: "título AAAAAAAAAAA do meu quiiiiiizzzz",
     image: "https://http.cat/411.jpg",
     questions: [
       {
@@ -151,6 +151,9 @@ function renderSuccessPage(quizSent){
         <h2>${quizSent.title}</h2>
     </div>
     </div>`;
+
+    successPage.innerHTML += `<button class="proceed-to-next final-page" onClick="selectQuizz(${quizSent.id})">Acessar Quiz</button>`;
+    successPage.innerHTML += `<a class="back-home" onClick="goBackHome()">Voltar para Home</a>`;
 }
 
 function initQuestions(){
@@ -666,4 +669,8 @@ function showFormLevel(obj){
     }
     obj.classList.add("hidden");
     document.querySelector(".level-config.level" + numberThislevel).classList.remove("hidden");
+}
+function goBackHome(){
+    document.querySelector(".quizzes-list").classList.remove("hidden");
+    document.querySelector(".success-page").classList.add("hidden");
 }
