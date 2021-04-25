@@ -6,9 +6,13 @@ let quizzToSend = {
 };
 let numberQuestions;
 let numberLevels;
+let isEditingQuizz = false;
+let editingQuizId;
 
 const listIdsAndKeys = "quizzesIdsAndKeys";
 const allUserQuizzes = "myBuzzQuizzesIds";
+
+
 
 quizzToSend = {
   title: "título AAAAAAAAAAA do meu quiiiiiizzzz",
@@ -315,7 +319,13 @@ function checkLevelsPage() {
     return;
   }
   resetLevelsPage();
-  sendQuizzToServer();
+  if(!isEditingQuizz){
+    sendQuizzToServer();
+  }
+  else{
+    isEditingQuizz = false;
+    updateQuizzOnServer();
+  }
 }
 
 function checkDescriptionLevel(idxLevel) {

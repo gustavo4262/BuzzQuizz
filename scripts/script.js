@@ -162,7 +162,7 @@ function renderQuizz(quiz, listUsed) {
             </div>`;
   if(listUsed === "user"){
     quizHTML += `<div class="edit" onClick="clickToEdit()">
-              <ion-icon name="create-outline"></ion-icon>
+              <ion-icon name="create-outline" onClick="updateQuizz(${quiz.id})"></ion-icon>
               <ion-icon name="trash-outline" onClick="deleteQuizz(${quiz.id})"></ion-icon>
             </div>`;
   }
