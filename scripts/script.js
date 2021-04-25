@@ -161,12 +161,14 @@ function renderQuizz(quiz, listUsed) {
             <img src="${quiz.image}" alt="">  
             <div class="quizz-title">  
                 <h2>${quiz.title}</h2>
-            </div>
-            <div class="edit" onClick="clickToEdit()">
-                <ion-icon name="create-outline"></ion-icon>
-                <ion-icon name="trash-outline" onClick="deleteQuizz(${quiz.id})"></ion-icon>
-            </div>
-        </div>`;
+            </div>`;
+  if(listUsed === "user"){
+    quizHTML += `<div class="edit" onClick="clickToEdit()">
+              <ion-icon name="create-outline"></ion-icon>
+              <ion-icon name="trash-outline" onClick="deleteQuizz(${quiz.id})"></ion-icon>
+            </div>`;
+  }
+  quizHTML += `</div>`;
   quizzesTag.innerHTML += quizHTML;
 }
 
