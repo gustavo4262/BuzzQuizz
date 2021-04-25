@@ -13,7 +13,7 @@ function deleteQuizz(quizId){
             "Secret-Key": keyToDelete
         }
     };
-    
+
     const deletePromise = axios.delete(url, data);
     deletePromise.then(()=>{
         alert("Quiz Apagado com sucesso!");
@@ -26,6 +26,22 @@ function deleteQuizz(quizId){
         loadQuizzes();
     });
     changeScreen("loading-page");
+}
+
+function updateQuizz(quizId){
+    const updateForSure = confirm("Você tem certeza que deseja modificar esse quiz?");
+    if(!updateForSure){
+        return;
+    }
+    const url = `https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/${quizId}`;
+    const keyToDelete = getQuizKey(quizId);
+
+    if(!keyToDelete){
+        return;
+    }
+    data = {
+        
+    }
 }
 
 function getQuizKey(quizId){
