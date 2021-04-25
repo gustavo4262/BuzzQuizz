@@ -87,9 +87,6 @@ quizzToSend = {
 };
 
 /* Development */
-    document.querySelector(".quizzes-list").classList.add("hidden");
-    document.querySelector(".quizz-page").classList.add("hidden");
-    document.querySelector(".quizz-creation").classList.add("hidden");
 /*End development */
 
 
@@ -158,7 +155,9 @@ function saveIdLocalStorage(quizSentId) {
 
 function renderSuccessPage(quizSent) {
   changeScreen("quizz-creation");
-  const successPage = document.querySelector(".quizzes-list.success-quizz");
+  document.querySelector(".begin-page").classList.add("hidden");
+  let successContainer = document.querySelector(".success-page");
+  let successPage = document.querySelector(".quizzes-list.success-quizz");
   successPage.innerHTML = `<div class="quizz" onclick="selectQuizz(${quizSent.id})">
     <img src="${quizSent.image}" alt="">  
     <div class="quizz-title">  
@@ -168,11 +167,11 @@ function renderSuccessPage(quizSent) {
 
   successPage.innerHTML += `<button class="proceed-to-next final-page" onClick="selectQuizz(${quizSent.id})">Acessar Quiz</button>`;
   successPage.innerHTML += `<a class="back-home" onClick="goBackHome()">Voltar para Home</a>`;
-  if(document.querySelector(".quizz-creation").classList.contains("hidde")){
+  if(document.querySelector(".quizz-creation").classList.contains("hidden")){
       document.querySelector(".quizz-creation").classList.remove("hidden");
   }
-  if(successPage.classList.contains("hidden")){
-      successPage.classList.remove("hidden");
+  if(successContainer.classList.contains("hidden")){
+      successContainer.classList.remove("hidden");
   }
 }
 

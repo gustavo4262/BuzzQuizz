@@ -50,7 +50,6 @@ function renderQuizzPage(response) {
     renderQuestion(question);
   });
   levels = response.data.levels;
-  console.log(levels);
   renderAnswer();
 }
 
@@ -98,9 +97,7 @@ function renderAnswer() {
   let score = Math.round((answerScore * 100) / levels.length);
   for (let i = 0; i < levels.length; i++) {
     let level = levels[i];
-    console.log(level.minValue, level.title, score);
     if (score <= level.minValue || i === levels.length - 1) {
-      console.log("ok", level.title, level.text);
       let answerHTML = `
               <div class="question-title ">
               <h1>${level.title}</h1>
@@ -120,7 +117,6 @@ function renderAnswer() {
 function restartQuizz() {
   document.querySelectorAll(".options").forEach((option) => {
     Array.from(option.children).forEach((item) => {
-      console.log(item);
       item.style.opacity = 1;
       let text = item.querySelector("h2");
       if (text.style.color !== "#000000") text.style.color = "#000000";
@@ -149,6 +145,8 @@ function changeScreen(screenToReveal) {
   }
   screenToReveal = document.querySelector(`.${screenToReveal}`);
   screenToReveal.classList.remove("hidden");
+  document.querySelector(".success-page").classList.add("hidden");
+  document.querySelector(".begin-page").classList.remove("hidden");
   window.scrollTo(0, 0);
 }
 
