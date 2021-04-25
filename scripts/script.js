@@ -148,12 +148,17 @@ function renderQuizz(quiz, listUsed) {
   let query = `.quizzes-list .${listUsed} .quizzes`;
   let quizzesTag = document.querySelector(query);
 
-  let quizHTML = `<div class="quizz" onclick="selectQuizz(${quiz.id})">
+  let quizHTML = `
+        <div class="quizz" onclick="selectQuizz(${quiz.id})">
             <img src="${quiz.image}" alt="">  
             <div class="quizz-title">  
                 <h2>${quiz.title}</h2>
             </div>
-            </div>`;
+            <div class="edit">
+                <ion-icon name="create-outline"></ion-icon>
+                <ion-icon name="trash-outline"></ion-icon>
+            </div>
+        </div>`;
   quizzesTag.innerHTML += quizHTML;
 }
 
