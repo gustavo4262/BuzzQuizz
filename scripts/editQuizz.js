@@ -57,3 +57,7 @@ function getQuizKey(quizId){
     }
     return false;
 }
+
+function clickToEdit(){
+    clickToEditQuiz = true;
+}

@@ -1,6 +1,7 @@
 loadQuizzes();
 let answerScore = 0;
 let levels = [];
+let clickToEditQuiz = false;
 
 function loadQuizzes() {
   let server =
@@ -13,6 +14,8 @@ function loadQuizzes() {
 
 function updateQuizzes(response) {
   changeScreen("quizzes-list");
+  document.querySelector(".quizzes-list .user .quizzes").innerHTML = "";
+  document.querySelector(".quizzes-list .all .quizzes").innerHTML = "";
   response.data.forEach((quiz) => {
     let listUsed = isFromUser(quiz.id) ? "user" : "all";
     if (listUsed == "user") {
@@ -20,11 +23,16 @@ function updateQuizzes(response) {
       document.querySelector(".filled-list").classList.remove("hidden");
       document.querySelector(".empty-list").classList.add("hidden");
     }
+    
     renderQuizz(quiz, listUsed);
   });
 }
 
 function selectQuizz(quizId) {
+  if(clickToEditQuiz){
+    clickToEditQuiz = false;
+    return;
+  }
   let server = `https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/${quizId}`;
   let request = axios.get(server);
   changeScreen("loading-page");
@@ -154,9 +162,9 @@ function renderQuizz(quiz, listUsed) {
             <div class="quizz-title">  
                 <h2>${quiz.title}</h2>
             </div>
-            <div class="edit">
+            <div class="edit" onClick="clickToEdit()">
                 <ion-icon name="create-outline"></ion-icon>
-                <ion-icon name="trash-outline"></ion-icon>
+                <ion-icon name="trash-outline" onClick="deleteQuizz(${quiz.id})"></ion-icon>
             </div>
         </div>`;
   quizzesTag.innerHTML += quizHTML;
