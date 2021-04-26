@@ -100,9 +100,6 @@ body {
   border-radius: 10px 0px 0px 11px;
 }
 
-.quizzes-list .edit {
-  pointer-events: none;
-}
 .quizzes-list .edit ion-icon {
   display: block;
   color: white;
