@@ -29,6 +29,7 @@ function updateQuizzes(response) {
 }
 
 function selectQuizz(quizId) {
+
   if(clickToEditQuiz){
     clickToEditQuiz = false;
     return;
