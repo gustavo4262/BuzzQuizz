@@ -426,9 +426,21 @@ body {
   .quizzes-list .all {
     width: 100vw;
   }
-  .quizzes-list .filled-list,
+  .quizzes-list, .filled-list,
   .empty-list {
     width: 100vw;
+  }
+  .quizzes-list .quizz:nth-child(3n + 0) {
+    margin-right: auto;
+    margin-left:auto;
+  }
+  .quizzes-list .quizz:nth-child(3n + 1) {
+    margin-right: auto;
+    margin-left:auto;
+  }
+  .quizzes-list .quizz:nth-child(3n + 2) {
+    margin-right: auto;
+    margin-left:auto;
   }
   .quizzes-list title {
     display: none;

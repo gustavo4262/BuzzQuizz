@@ -16,14 +16,20 @@ function updateQuizzes(response) {
   changeScreen("quizzes-list");
   document.querySelector(".quizzes-list .user .quizzes").innerHTML = "";
   document.querySelector(".quizzes-list .all .quizzes").innerHTML = "";
+  let boolSomeUser = false;
   response.data.forEach((quiz) => {
     let listUsed = isFromUser(quiz.id) ? "user" : "all";
     if (listUsed == "user") {
+      boolSomeUser = true;
       document.querySelector(".user").classList.remove("empty");
       document.querySelector(".filled-list").classList.remove("hidden");
       document.querySelector(".empty-list").classList.add("hidden");
     }
-    
+    if(!boolSomeUser){
+      document.querySelector(".user").classList.add("empty");
+      document.querySelector(".filled-list").classList.add("hidden");
+      document.querySelector(".empty-list").classList.remove("hidden");
+    }
     renderQuizz(quiz, listUsed);
   });
 }
