@@ -10,7 +10,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #ec362d;
-  width: 100%;
+  width: 100vw;
   height: 69px;
   color: #ffffff;
   font-size: 37px;
@@ -100,14 +100,13 @@ body {
   border-radius: 10px 0px 0px 11px;
 }
 
-.quizzes-lis > .edit {
+.quizzes-list .edit {
   pointer-events: none;
 }
 .quizzes-list .edit ion-icon {
   display: block;
   color: white;
   font-size: 26px;
-  /* margin-right: 10px; */
   margin-top: 10px;
   --ionicon-stroke-width: 40px;
 }
@@ -423,24 +422,52 @@ body {
 
 @media (max-width: 1100px) {
   .quizzes-list {
-    margin-left: 17px;
-    margin-right: 17px;
-    width: calc(100%-37px);
+    width: 100%;
+    margin-left: 10px;
   }
   .user,
   .all {
-    width: calc(100%-37px);
+    width: 100vw;
   }
-  .quizzes-list .filled-list {
-    width: 100%;
+  .quizzes-list .filled-list,
+  .empty-list {
+    width: 100vw;
+  }
+  .quizzes-list title {
+    display: none;
+    width: 100vw;
   }
   .quizzes-list .quizzes {
-    flex-flow: nowrap column;
+    display: initial;
     align-items: center;
-    width: 100%;
+    width: 100vw;
   }
   .quizzes-list .quizz {
     margin-right: 0;
+  }
+  .quizz-page {
+    width: 100%;
+    justify-content: center;
+  }
+  .quizz-page .banner {
+    width: 100%;
+  }
+  .quizz-page .question-title {
+    width: 100%;
+  }
+  .quizz-page img {
+    width: 163px;
+    height: 113px;
+  }
+  .quizz-page .questions,
+  .quizz-page .answer {
+    width: 100%;
+  }
+  .quizz-page .options {
+    flex-direction: column;
+  }
+  .quizz-page .description {
+    flex-direction: column;
   }
   .main-info {
     width: 100%;
@@ -472,6 +499,10 @@ body {
   }
   .levels-page .proceed-to-next {
     margin-top: 46px;
+  }
+  .loading-page {
+    width: 100vw;
+    height: auto;
   }
 }
 @media (max-width: 330px) {
