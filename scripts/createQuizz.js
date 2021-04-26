@@ -12,88 +12,6 @@ let editingQuizId;
 const listIdsAndKeys = "quizzesIdsAndKeys";
 const allUserQuizzes = "myBuzzQuizzesIds";
 
-
-
-quizzToSend = {
-  title: "título AAAAAAAAAAA do meu quiiiiiizzzz",
-  image: "https://http.cat/411.jpg",
-  questions: [
-    {
-      title: "Texto muito bonito da da pergunta 1",
-      color: "#123456",
-      answers: [
-        {
-          text: "a",
-          image: "https://http.cat/411.jpg",
-          isCorrectAnswer: true,
-        },
-        {
-          text: "a",
-          image: "https://http.cat/411.jpg",
-          isCorrectAnswer: false,
-        },
-        {
-          text: "a",
-          image: "https://http.cat/411.jpg",
-          isCorrectAnswer: false,
-        },
-      ],
-    },
-    {
-      title: "Texto muito bonito da da pergunta 2",
-      color: "#123456",
-      answers: [
-        {
-          text: "a",
-          image: "https://http.cat/411.jpg/",
-          isCorrectAnswer: true,
-        },
-        {
-          text: "a",
-          image: "https://http.cat/411.jpg",
-          isCorrectAnswer: false,
-        },
-      ],
-    },
-    {
-      title: "Texto muito bonito da da pergunta 3",
-      color: "#123456",
-      answers: [
-        {
-          text: "a",
-          image: "https://http.cat/411.jpg",
-          isCorrectAnswer: true,
-        },
-        {
-          text: "a",
-          image: "https://http.cat/411.jpg",
-          isCorrectAnswer: false,
-        },
-      ],
-    },
-  ],
-  levels: [
-    {
-      title: "Titulo muito bonito do nível belíssimo 1",
-      minValue: 90,
-      image: "http://asdfasdfasdfasdf",
-      text:
-        "fasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd",
-    },
-    {
-      title: "Titulo muito bonito do nível belíssimo 2",
-      minValue: 0,
-      image: "http://",
-      text:
-        "sfasjdflkjasdklçfjasdçfkjasdkçfjasdkçfjçasdkjTitulo muito bonito do nível belíssimo 1Titulo muito bonito do nível belíssimo 1Titulo muito bonito do nível belíssimo 1",
-    },
-  ],
-};
-
-/* Development */
-/*End development */
-
-
 function initQuizz() {
   let isTitle = checkTitle();
   let isUrl = checkUrl();
@@ -114,6 +32,7 @@ function sendQuizzToServer() {
   const server =
     "https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes";
   const sendQuizzPromise = axios.post(server, quizzToSend);
+  quizzToSend = emptyQuizzToSend;
   changeScreen("loading-page");
   sendQuizzPromise.then((response) => {
     renderSuccessPage(response.data);
