@@ -32,7 +32,6 @@ function sendQuizzToServer() {
   const server =
     "https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes";
   const sendQuizzPromise = axios.post(server, quizzToSend);
-  quizzToSend = emptyQuizzToSend;
   changeScreen("loading-page");
   sendQuizzPromise.then((response) => {
     renderSuccessPage(response.data);
@@ -79,7 +78,11 @@ function saveIdLocalStorage(quizSentId) {
 function renderSuccessPage(quizSent) {
   changeScreen("quizz-creation");
   document.querySelector(".begin-page").classList.add("hidden");
+  
   let successContainer = document.querySelector(".success-page");
+  if(successContainer.classList.contains("hidden")){
+    successContainer.classList.remove("hidden");
+  }
   let successPage = document.querySelector(".quizzes-list.success-quizz");
   successPage.innerHTML = `<div class="quizz" onclick="selectQuizz(${quizSent.id})">
     <img src="${quizSent.image}" alt="">  
@@ -92,9 +95,6 @@ function renderSuccessPage(quizSent) {
   successPage.innerHTML += `<a class="back-home" onClick="goBackHome()">Voltar para Home</a>`;
   if(document.querySelector(".quizz-creation").classList.contains("hidden")){
       document.querySelector(".quizz-creation").classList.remove("hidden");
-  }
-  if(successContainer.classList.contains("hidden")){
-      successContainer.classList.remove("hidden");
   }
 }
 

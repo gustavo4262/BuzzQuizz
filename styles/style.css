@@ -425,8 +425,8 @@ body {
     width: 100%;
     margin-left: 10px;
   }
-  .user,
-  .all {
+  .quizzes-list .user,
+  .quizzes-list .all {
     width: 100vw;
   }
   .quizzes-list .filled-list,
